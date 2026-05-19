@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "App user (Passenger or Driver)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["passenger", "driver", "admin"] },
+        "phoneNumber": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "DriverProfile": {
+      "title": "Driver Profile",
+      "description": "Additional info for drivers",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "vehicleModel": { "type": "string" },
+        "plateNumber": { "type": "string" },
+        "licenseNumber": { "type": "string" },
+        "isOnline": { "type": "boolean" },
+        "currentLocation": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "rating": { "type": "number" },
+        "totalRides": { "type": "number" },
+        "documentsApproved": { "type": "boolean" },
+        "activationFeePaid": { "type": "boolean" }
+      },
+      "required": ["userId"]
+    },
+    "Ride": {
+      "title": "Ride",
+      "description": "A trip request or active ride",
+      "type": "object",
+      "properties": {
+        "passengerId": { "type": "string" },
+        "driverId": { "type": "string" },
+        "status": { "type": "string", "enum": ["requested", "accepted", "arrived", "started", "completed", "cancelled"] },
+        "pickup": {
+          "type": "object",
+          "properties": {
+            "address": { "type": "string" },
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "destination": {
+          "type": "object",
+          "properties": {
+            "address": { "type": "string" },
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "price": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["cash", "card"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "acceptedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["passengerId", "status", "pickup", "destination", "price"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/drivers/{userId}": {
+      "schema": "DriverProfile",
+      "description": "Driver-specific profiles"
+    },
+    "/rides/{rideId}": {
+      "schema": "Ride",
+      "description": "Ride requests and history"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Kwano Rides",
+  "description": "A professional ride-booking app for South Africa focusing on safety and local community transport. Features passenger and driver modes, real-time tracking, and integrated safety features.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
