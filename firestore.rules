@@ -1,132 +1,28 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // 1. Global Safety Net
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // Phase 3: Primitives
     function isSignedIn() {
       return request.auth != null;
     }
-    
-    function isEmailVerified() {
-      return request.auth.token.email_verified == true;
-    }
 
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
-    function isAdmin() {
-      return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-    }
-
-    function isValidId(id) {
-      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
-    }
-
-    function incoming() {
-      return request.resource.data;
-    }
-
-    function existing() {
-      return resource.data;
-    }
-
-    // Phase 4: Validation Blueprints
-    
-    function isValidUser(data) {
-      return data.get('uid', '') == request.auth.uid
-        && data.get('email', '') is string
-        && data.get('displayName', '') is string
-        && data.get('role', '') in ['passenger', 'driver', 'admin']
-        && data.get('phoneNumber', '') is string
-        && data.get('photoURL', '') is string
-        && data.get('createdAt', '') is string
-        && data.get('isVerified', false) is bool;
-    }
-
-    function isValidDriverProfile(data) {
-      return data.get('userId', '') == request.auth.uid
-        && data.get('vehicleModel', '') is string
-        && data.get('plateNumber', '') is string
-        && data.get('isOnline', false) is bool
-        && data.get('rating', 0) is number
-        && data.get('totalRides', 0) is number
-        && data.get('documentsApproved', false) is bool
-        && data.get('activationFeePaid', false) is bool;
-    }
-
-    function isValidRide(data) {
-      return data.get('passengerId', '') is string
-        && data.get('status', '') in ['requested', 'accepted', 'arriving', 'started', 'completed', 'cancelled']
-        && data.pickup.address is string
-        && data.pickup.lat is number && data.pickup.lng is number
-        && data.destination.address is string
-        && data.destination.lat is number && data.destination.lng is number
-        && data.get('price', 0) is number
-        && data.get('paymentMethod', '') in ['cash', 'card']
-        && data.get('createdAt', '') is string;
-    }
-
-    // Collections
-    
     match /users/{userId} {
-      allow get: if isOwner(userId) || isAdmin();
-      allow list: if isAdmin();
-      
-      allow create: if isOwner(userId) && isValidUser(incoming()) 
-                     && incoming().get('role', '') != 'admin'
-                     && incoming().get('isVerified', false) == false;
-
-      allow update: if isOwner(userId) && isValidUser(incoming()) && (
-        incoming().get('isVerified', false) == existing().get('isVerified', false) &&
-        incoming().get('role', '') == existing().get('role', '') &&
-        incoming().get('uid', '') == existing().get('uid', '')
-      ) || isAdmin();
-    }
-
-    match /drivers/{userId} {
-      allow get: if isSignedIn();
-      allow list: if isSignedIn();
-      
-      allow create: if isOwner(userId) && isValidDriverProfile(incoming())
-                     && incoming().get('documentsApproved', false) == false
-                     && incoming().get('activationFeePaid', false) == false;
-
-      allow update: if isOwner(userId) && isValidDriverProfile(incoming()) && (
-        incoming().get('documentsApproved', false) == existing().get('documentsApproved', false) &&
-        incoming().get('activationFeePaid', false) == existing().get('activationFeePaid', false)
-      ) || isAdmin();
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn() && request.auth.uid == userId;
     }
 
     match /rides/{rideId} {
-      allow get: if isSignedIn() && (isOwner(existing().passengerId) || isOwner(existing().driverId) || isAdmin());
-      allow list: if isSignedIn() && (resource.data.passengerId == request.auth.uid || resource.data.driverId == request.auth.uid || isAdmin());
-      
-      allow create: if isSignedIn() && isValidRide(incoming()) 
-                      && incoming().passengerId == request.auth.uid
-                      && incoming().status == 'requested';
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+    }
 
-      allow update: if isSignedIn() && isValidRide(incoming()) && (
-        isAdmin() ||
-        // Passenger Actions: Cancel
-        (isOwner(existing().passengerId) && incoming().status == 'cancelled' && existing().status == 'requested' 
-         && incoming().diff(existing()).affectedKeys().hasOnly(['status'])) ||
-        // Driver Actions: Accept
-        (isValidId(rideId) && incoming().status == 'accepted' && existing().status == 'requested'
-         && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'driver'
-         && incoming().driverId == request.auth.uid
-         && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'driverId', 'acceptedAt'])) ||
-        // Driver Actions: Progress
-        (isOwner(existing().driverId) && (
-           (existing().status == 'accepted' && incoming().status == 'arriving') ||
-           (existing().status == 'arriving' && incoming().status == 'started') ||
-           (existing().status == 'started' && incoming().status == 'completed')
-        ) && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'completedAt']))
-      );
+    match /alerts/{alertId} {
+      allow read, create: if isSignedIn();
+      allow update: if isSignedIn();
     }
   }
 }

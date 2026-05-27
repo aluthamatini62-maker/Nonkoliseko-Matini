@@ -1,52 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import { useApp } from '../context/AppContext';
+import { User, Car, ShieldCheck } from 'lucide-react';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
-import { doc, setDoc } from 'firebase/firestore';
-import { UserRole } from '../types';
-import { User, Car, Shield } from 'lucide-react';
-import { cn } from '../lib/utils';
 
 export default function RoleSelectionScreen() {
-  const { user, setScreen } = useApp();
-  const [loading, setLoading] = useState(false);
+  const { user, profile, setScreen } = useApp();
 
-  const selectRole = async (role: UserRole) => {
+  const handleRoleSelect = async (role: 'passenger' | 'driver') => {
     if (!user) return;
-    setLoading(true);
+    
     try {
-      const profile = {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
-        email: user.email!,
-        displayName: user.displayName || 'Anonymous User',
-        role,
-        phoneNumber: user.phoneNumber || '',
-        photoURL: user.photoURL || '',
-        createdAt: new Date().toISOString(),
-        isVerified: false,
-      };
-      await setDoc(doc(db, 'users', user.uid), profile);
-      
-      if (role === 'driver') {
-        const driverProfile = {
-          userId: user.uid,
-          vehicleModel: '',
-          plateNumber: '',
-          isOnline: false,
-          currentLocation: { lat: 0, lng: 0 },
-          rating: 5,
-          totalRides: 0,
-          documentsApproved: false,
-          activationFeePaid: false,
-        };
-        await setDoc(doc(db, 'drivers', user.uid), driverProfile);
-      }
-      
+        displayName: user.displayName || 'User',
+        email: user.email || '',
+        role: role,
+        isVerified: role === 'driver' ? true : false, // Auto-verify for now to keep it simple, or set to false
+        updatedAt: serverTimestamp(),
+        createdAt: serverTimestamp()
+      }, { merge: true });
       setScreen(role === 'driver' ? 'driver-home' : 'passenger-home');
     } catch (error) {
       handleFirestoreError(error, OperationType.WRITE, `users/${user.uid}`);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -55,45 +32,44 @@ export default function RoleSelectionScreen() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col h-full bg-black p-8 justify-center"
+      className="flex flex-col h-full bg-black p-5 justify-between"
     >
-      <h2 className="text-3xl font-bold text-white mb-8 text-center italic">I want to...</h2>
-      
-      <div className="space-y-6">
+      <div className="mt-6 mb-4">
+        <h2 className="text-2xl font-bold text-white mb-2 italic">Who are you?</h2>
+        <p className="text-gray-400 text-xs font-medium tracking-tight">Choose your role to continue with Kwano Rides.</p>
+      </div>
+
+      <div className="space-y-4 flex-1 flex flex-col justify-center">
         <button
-          onClick={() => selectRole('passenger')}
-          disabled={loading}
-          className="w-full bg-[#1A1A1A] p-6 rounded-2xl border border-white/10 flex items-center gap-6 group hover:border-yellow-500/50 transition-colors"
+          onClick={() => handleRoleSelect('passenger')}
+          className="w-full bg-[#1A1A1A] border border-white/5 rounded-2xl p-5 flex flex-col items-center gap-3 hover:border-yellow-500/30 transition-all group active:scale-[0.98]"
         >
-          <div className="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors">
-            <User className="text-yellow-500" size={32} />
+          <div className="w-14 h-14 rounded-full bg-yellow-500 flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform">
+            <User size={28} className="text-black" />
           </div>
-          <div className="text-left">
-            <h3 className="text-xl font-bold text-white">Ride</h3>
-            <p className="text-gray-400 text-sm">Book safe, reliable trips.</p>
+          <div className="text-center">
+            <h3 className="text-lg font-bold text-white mb-0.5 tracking-tight">Passenger</h3>
+            <p className="text-gray-500 text-[10px] font-medium tracking-wide uppercase">I need a ride</p>
           </div>
         </button>
 
         <button
-          onClick={() => selectRole('driver')}
-          disabled={loading}
-          className="w-full bg-[#1A1A1A] p-6 rounded-2xl border border-white/10 flex items-center gap-6 group hover:border-yellow-500/50 transition-colors"
+          onClick={() => handleRoleSelect('driver')}
+          className="w-full bg-[#1A1A1A] border border-white/5 rounded-2xl p-5 flex flex-col items-center gap-3 hover:border-yellow-500/30 transition-all group active:scale-[0.98]"
         >
-          <div className="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors">
-            <Car className="text-yellow-500" size={32} />
+          <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform">
+            <Car size={28} className="text-white" />
           </div>
-          <div className="text-left">
-            <h3 className="text-xl font-bold text-white">Drive</h3>
-            <p className="text-gray-400 text-sm">Earn by providing safe rides.</p>
+          <div className="text-center">
+            <h3 className="text-lg font-bold text-white mb-0.5 tracking-tight">Driver</h3>
+            <p className="text-gray-500 text-[10px] font-medium tracking-wide uppercase">I want to drive</p>
           </div>
         </button>
       </div>
 
-      <div className="mt-12 flex items-center justify-center gap-2">
-        <Shield size={14} className="text-yellow-500/50" />
-        <p className="text-[10px] text-gray-500 uppercase tracking-widest text-center">
-          Background checks required for all drivers
-        </p>
+      <div className="mt-auto flex items-center justify-center gap-2 pt-4 mb-4">
+        <ShieldCheck size={16} className="text-yellow-500" />
+        <span className="text-xs text-gray-500 uppercase tracking-widest font-semibold tracking-tighter">Safety is our Priority</span>
       </div>
     </motion.div>
   );

@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-yellow-500/30 overflow-hidden">
-      <div className="relative mx-auto max-w-md h-screen bg-[#111] shadow-2xl overflow-hidden">
+      <div className="relative mx-auto max-w-md h-[100dvh] w-full bg-[#111] shadow-2xl overflow-hidden">
         <AnimatePresence mode="wait">
           {currentScreen === 'splash' && <SplashScreen key="splash" />}
           {currentScreen === 'auth' && <AuthScreen key="auth" />}

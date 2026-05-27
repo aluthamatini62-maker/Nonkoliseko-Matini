@@ -5,11 +5,19 @@ export interface UserProfile {
   uid: string;
   email: string;
   displayName: string;
+  name?: string;
   role: UserRole;
   phoneNumber?: string;
   photoURL?: string;
+  avatar?: string;
   isVerified?: boolean;
   createdAt: string;
+  vehicleDetails?: {
+    makeModel: string;
+    plateNumber: string;
+  };
+  activationFeePaid?: boolean;
+  documentStatus?: 'approved' | 'pending' | 'rejected';
 }
 
 export interface DriverProfile {

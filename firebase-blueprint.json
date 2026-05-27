@@ -2,89 +2,90 @@
   "entities": {
     "User": {
       "title": "User",
-      "description": "App user (Passenger or Driver)",
+      "description": "User profile data for both passengers and drivers",
       "type": "object",
       "properties": {
-        "uid": { "type": "string" },
-        "email": { "type": "string" },
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
         "displayName": { "type": "string" },
+        "name": { "type": "string" },
+        "avatar": { "type": "string" },
         "role": { "type": "string", "enum": ["passenger", "driver", "admin"] },
         "phoneNumber": { "type": "string" },
         "isVerified": { "type": "boolean" },
-        "photoURL": { "type": "string" },
-        "createdAt": { "type": "string", "format": "date-time" }
-      },
-      "required": ["uid", "email", "role"]
-    },
-    "DriverProfile": {
-      "title": "Driver Profile",
-      "description": "Additional info for drivers",
-      "type": "object",
-      "properties": {
-        "userId": { "type": "string" },
-        "vehicleModel": { "type": "string" },
-        "plateNumber": { "type": "string" },
-        "licenseNumber": { "type": "string" },
-        "isOnline": { "type": "boolean" },
-        "currentLocation": {
-          "type": "object",
-          "properties": {
-            "lat": { "type": "number" },
-            "lng": { "type": "number" }
-          }
+        "emergencyContacts": { 
+          "type": "array"
         },
-        "rating": { "type": "number" },
-        "totalRides": { "type": "number" },
-        "documentsApproved": { "type": "boolean" },
-        "activationFeePaid": { "type": "boolean" }
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["userId"]
+      "required": ["uid", "role"]
     },
     "Ride": {
       "title": "Ride",
-      "description": "A trip request or active ride",
+      "description": "A ride request and active trip record",
       "type": "object",
       "properties": {
         "passengerId": { "type": "string" },
         "driverId": { "type": "string" },
-        "status": { "type": "string", "enum": ["requested", "accepted", "arrived", "started", "completed", "cancelled"] },
+        "status": { 
+          "type": "string", 
+          "enum": ["requested", "accepted", "started", "completed", "cancelled"] 
+        },
         "pickup": {
           "type": "object",
           "properties": {
-            "address": { "type": "string" },
             "lat": { "type": "number" },
-            "lng": { "type": "number" }
+            "lng": { "type": "number" },
+            "address": { "type": "string" }
           }
         },
         "destination": {
           "type": "object",
           "properties": {
-            "address": { "type": "string" },
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "address": { "type": "string" }
+          }
+        },
+        "price": { "type": "string" },
+        "type": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["passengerId", "status", "pickup", "destination"]
+    },
+    "Alert": {
+      "title": "Alert",
+      "description": "Security or emergency alert",
+      "type": "object",
+      "properties": {
+        "rideId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
             "lat": { "type": "number" },
             "lng": { "type": "number" }
           }
         },
-        "price": { "type": "number" },
-        "paymentMethod": { "type": "string", "enum": ["cash", "card"] },
-        "createdAt": { "type": "string", "format": "date-time" },
-        "acceptedAt": { "type": "string", "format": "date-time" },
-        "completedAt": { "type": "string", "format": "date-time" }
-      },
-      "required": ["passengerId", "status", "pickup", "destination", "price"]
+        "timestamp": { "type": "string", "format": "date-time" },
+        "resolved": { "type": "boolean" }
+      }
     }
   },
   "firestore": {
-    "/users/{userId}": {
+    "users/{userId}": {
       "schema": "User",
       "description": "User profiles"
     },
-    "/drivers/{userId}": {
-      "schema": "DriverProfile",
-      "description": "Driver-specific profiles"
-    },
-    "/rides/{rideId}": {
+    "rides/{rideId}": {
       "schema": "Ride",
-      "description": "Ride requests and history"
+      "description": "Ride records"
+    },
+    "alerts/{alertId}": {
+      "schema": "Alert",
+      "description": "Emergency alerts"
     }
   }
 }
