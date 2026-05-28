@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Definitions for Gradients -->
+  <defs>
+    <!-- Dark luxurious metallic carbon background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141414" />
+      <stop offset="100%" stop-color="#050505" />
+    </linearGradient>
+    
+    <!-- Vibrant golden yellow gradient suitable for high-end transport apps -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" />
+      <stop offset="50%" stop-color="#F5B400" />
+      <stop offset="100%" stop-color="#B8860B" />
+    </linearGradient>
+
+    <!-- Glowing backdrop shadow for modern layout depth -->
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5B400" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background Base (Maskable Icon compatibility) -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Subtle radial gold glow inside -->
+  <circle cx="256" cy="256" r="220" fill="url(#glowGrad)" />
+
+  <!-- Outer Ring (Double Dynamic Steering Arc) -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="url(#goldGrad)" stroke-width="12" stroke-dasharray="700 300" transform="rotate(-65 256 256)" opacity="0.9" />
+  <circle cx="256" cy="256" r="135" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-dasharray="500 150" transform="rotate(45 256 256)" opacity="0.5" />
+
+  <!-- Dynamic Map Route Line inside steering arc -->
+  <path d="M 180 320 C 180 230, 332 290, 332 195" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10" opacity="0.4" />
+
+  <!-- Main Luxury Pin Logo Structure -->
+  <g transform="translate(0, -10)">
+    <!-- Base location PIN representing PASSENGER destination -->
+    <path d="M 256 120 C 190 120, 140 170, 140 236 C 140 310, 256 410, 256 410 C 256 410, 372 310, 372 236 C 372 170, 322 120, 256 120 Z" 
+          fill="url(#goldGrad)" 
+          filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.65))" />
+    
+    <!-- Central Steering wheel center ring with pure black contrast -->
+    <circle cx="256" cy="236" r="54" fill="#000000" />
+    
+    <!-- Inner glowing gold rim representing DRIVER status -->
+    <circle cx="256" cy="236" r="50" fill="none" stroke="url(#goldGrad)" stroke-width="8" />
+
+    <!-- Highly polished "K" letter silhouette custom crafted from geometric paths -->
+    <path d="M 235 200 L 235 272 M 235 236 L 273 200 M 252 236 L 276 272" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="12" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+  </g>
+
+  <!-- Elegant Status Dot (Signaling online live dispatch state) -->
+  <circle cx="256" cy="455" r="10" fill="#22C55E" />
+</svg>
