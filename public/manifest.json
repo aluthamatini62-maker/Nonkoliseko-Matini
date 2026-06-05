@@ -1,7 +1,7 @@
 {
-  "name": "Kwano Ride-Share",
-  "short_name": "Kwano",
-  "description": "Premium on-demand ride-hailing app for Drivers and Passengers.",
+  "name": "Kasi Rides SA",
+  "short_name": "Kasi Rides",
+  "description": "Premium on-demand township and city ride-hailing app for Drivers and Passengers.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

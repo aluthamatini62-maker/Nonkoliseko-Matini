@@ -12,16 +12,30 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 );
 
-// Register Progressive Web App (PWA) Service Worker for seamless installation setup on Android and iOS devices
-if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((reg) => {
-        console.log('Kwano PWA Service Worker matched and registered successfully:', reg.scope);
-      })
-      .catch((err) => {
-        console.warn('Kwano PWA Service Worker registration failed:', err);
+// Forcefully unregister service workers and clear old caches to solve stale cache / broken app issues on mobile devices
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister().then((success) => {
+        if (success) {
+          console.log('Successfully unregistered old service worker.');
+        }
       });
+    }
   });
 }
+
+// Clear all cache storage to make sure the user's phone downloads the latest updated app directly from the server
+if ('caches' in window) {
+  caches.keys().then((names) => {
+    for (const name of names) {
+      caches.delete(name).then(() => {
+        console.log(`Cleared cache storage: ${name}`);
+      });
+    }
+  }).catch((err) => {
+    console.warn('Failed to clear caches:', err);
+  });
+}
+
 

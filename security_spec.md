@@ -1,4 +1,4 @@
-# Kwano Rides Security Specification
+# Kasi Rides Security Specification
 
 ## Data Invariants
 1. **Users**: `/users/{userId}` - Only the user themselves can read/write their own profile. `role` cannot be changed by the user once set (or requires admin). `isVerified` only by admin.

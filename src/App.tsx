@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from './context/AppContext';
 import SplashScreen from './screens/SplashScreen';
 import AuthScreen from './screens/AuthScreen';
@@ -15,17 +15,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-yellow-500/30 overflow-hidden">
-      <div className="relative mx-auto max-w-md h-[100dvh] w-full bg-[#111] shadow-2xl overflow-hidden">
-        <AnimatePresence mode="wait">
-          {currentScreen === 'splash' && <SplashScreen key="splash" />}
-          {currentScreen === 'auth' && <AuthScreen key="auth" />}
-          {currentScreen === 'auth-role-selection' && <RoleSelectionScreen key="role" />}
-          {currentScreen === 'passenger-home' && <PassengerHome key="passenger" />}
-          {currentScreen === 'driver-home' && <DriverHome key="driver" />}
-          {currentScreen === 'safety' && <SafetyScreen key="safety" />}
-          {currentScreen === 'tracking' && <TrackingScreen key="tracking" />}
-          {currentScreen === 'admin' && <AdminDashboard key="admin" />}
-        </AnimatePresence>
+      <div className="relative mx-auto max-w-md h-[100dvh] w-full bg-[#111] shadow-2xl overflow-hidden flex flex-col">
+        <div className="flex-1 min-h-0 relative overflow-hidden">
+          <AnimatePresence mode="wait">
+            {currentScreen === 'splash' && <SplashScreen key="splash" />}
+            {currentScreen === 'auth' && <AuthScreen key="auth" />}
+            {currentScreen === 'auth-role-selection' && <RoleSelectionScreen key="role" />}
+            {currentScreen === 'passenger-home' && <PassengerHome key="passenger" />}
+            {currentScreen === 'driver-home' && <DriverHome key="driver" />}
+            {currentScreen === 'safety' && <SafetyScreen key="safety" />}
+            {currentScreen === 'tracking' && <TrackingScreen key="tracking" />}
+            {currentScreen === 'admin' && <AdminDashboard key="admin" />}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

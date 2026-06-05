@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { Users, Car, Map, AlertTriangle, ChevronLeft, ShieldCheck, TrendingUp, Search } from 'lucide-react';
 

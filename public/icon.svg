@@ -1,61 +1,113 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <!-- Definitions for Gradients -->
+  <!-- Defs for filters and styles -->
   <defs>
-    <!-- Dark luxurious metallic carbon background gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#141414" />
-      <stop offset="100%" stop-color="#050505" />
-    </linearGradient>
-    
-    <!-- Vibrant golden yellow gradient suitable for high-end transport apps -->
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFD700" />
-      <stop offset="50%" stop-color="#F5B400" />
-      <stop offset="100%" stop-color="#B8860B" />
+      <stop offset="100%" stop-color="#F5B400" />
     </linearGradient>
-
-    <!-- Glowing backdrop shadow for modern layout depth -->
-    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#F5B400" stop-opacity="0.15" />
-      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
-    </radialGradient>
+    <style>
+      .title-kasi { font-family: 'Montserrat', 'Arial Black', sans-serif; font-weight: 900; fill: #FFFFFF; font-size: 64px; letter-spacing: -2px; }
+      .title-rides { font-family: 'Montserrat', 'Arial Black', sans-serif; font-weight: 900; font-style: italic; fill: #F5B400; font-size: 80px; letter-spacing: -3px; }
+      .tagline { font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: 800; fill: #FFFFFF; font-size: 13px; letter-spacing: 1px; }
+      .sub-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: 700; fill: #FFFFFF; font-size: 10px; letter-spacing: 0.5px; }
+    </style>
   </defs>
 
-  <!-- Background Base (Maskable Icon compatibility) -->
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect width="512" height="512" fill="#000000"/>
+  
+  <!-- Outer Gold Circles -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#F5B400" stroke-width="6"/>
+  <circle cx="256" cy="256" r="226" fill="none" stroke="#F5B400" stroke-width="2"/>
 
-  <!-- Subtle radial gold glow inside -->
-  <circle cx="256" cy="256" r="220" fill="url(#glowGrad)" />
+  <!-- Logo Group -->
+  <g transform="translate(0, 5)">
+    <!-- Location Pin -->
+    <path d="M 125 155 C 113 155, 103 165, 103 177 C 103 192, 125 212, 125 212 C 125 212, 147 192, 147 177 C 147 165, 137 155, 125 155 Z" fill="#F5B400" />
+    <circle cx="125" cy="177" r="5" fill="#000000" />
 
-  <!-- Outer Ring (Double Dynamic Steering Arc) -->
-  <circle cx="256" cy="256" r="160" fill="none" stroke="url(#goldGrad)" stroke-width="12" stroke-dasharray="700 300" transform="rotate(-65 256 256)" opacity="0.9" />
-  <circle cx="256" cy="256" r="135" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-dasharray="500 150" transform="rotate(45 256 256)" opacity="0.5" />
-
-  <!-- Dynamic Map Route Line inside steering arc -->
-  <path d="M 180 320 C 180 230, 332 290, 332 195" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10" opacity="0.4" />
-
-  <!-- Main Luxury Pin Logo Structure -->
-  <g transform="translate(0, -10)">
-    <!-- Base location PIN representing PASSENGER destination -->
-    <path d="M 256 120 C 190 120, 140 170, 140 236 C 140 310, 256 410, 256 410 C 256 410, 372 310, 372 236 C 372 170, 322 120, 256 120 Z" 
-          fill="url(#goldGrad)" 
-          filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.65))" />
+    <!-- "KASI" Text -->
+    <text x="155" y="202" class="title-kasi">KASI</text>
     
-    <!-- Central Steering wheel center ring with pure black contrast -->
-    <circle cx="256" cy="236" r="54" fill="#000000" />
+    <!-- Motion lines for RIDES -->
+    <path d="M 60 235 L 145 235 M 80 248 L 145 248 M 95 261 L 145 261" stroke="#F5B400" stroke-width="5" stroke-linecap="round" />
     
-    <!-- Inner glowing gold rim representing DRIVER status -->
-    <circle cx="256" cy="236" r="50" fill="none" stroke="url(#goldGrad)" stroke-width="8" />
-
-    <!-- Highly polished "K" letter silhouette custom crafted from geometric paths -->
-    <path d="M 235 200 L 235 272 M 235 236 L 273 200 M 252 236 L 276 272" 
-          fill="none" 
-          stroke="#FFFFFF" 
-          stroke-width="12" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" />
+    <!-- "RIDES" Text -->
+    <text x="145" y="272" class="title-rides">RIDES</text>
   </g>
 
-  <!-- Elegant Status Dot (Signaling online live dispatch state) -->
-  <circle cx="256" cy="455" r="10" fill="#22C55E" />
+  <!-- Tagline -->
+  <text x="256" y="318" text-anchor="middle" class="tagline">YOUR RIDE. YOUR PEOPLE. YOUR <tspan fill="#F5B400">KASI.</tspan></text>
+
+  <!-- Illustration of township and car -->
+  <!-- Silhouettes of houses, power pole, water tower -->
+  <!-- Left houses and power lines -->
+  <path d="M 40 380 L 40 345 L 60 345 L 60 380 Z" fill="#FFFFFF" opacity="0.8"/>
+  <path d="M 80 380 L 80 355 L 95 355 L 95 380 Z" fill="#FFFFFF" opacity="0.8"/>
+  <path d="M 35 345 L 50 335 L 65 345 Z" fill="#FFFFFF"/>
+  <path d="M 75 355 L 87 347 L 100 355 Z" fill="#FFFFFF"/>
+  <!-- Power lines/poles -->
+  <path d="M 120 380 L 120 325 M 105 332 L 135 332 M 105 340 L 135 340" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Right water tower and house -->
+  <path d="M 420 380 L 420 345 M 435 380 L 435 345 M 415 345 L 440 345 Z" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M 412 345 L 443 345 L 427 332 Z" fill="#FFFFFF"/>
+  <path d="M 455 380 L 455 360 L 475 360 L 475 380 Z" fill="#FFFFFF"/>
+  <path d="M 450 360 L 465 352 L 480 360 Z" fill="#FFFFFF"/>
+
+  <!-- Road -->
+  <path d="M 50 405 Q 230 375, 462 405" fill="none" stroke="#F5B400" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- White Sedan Car Driving -->
+  <g transform="translate(145, 312)">
+    <!-- Car body base -->
+    <path d="M 20 45 L 40 45 Q 60 20, 110 20 Q 170 20, 185 45 L 195 48 C 210 52, 215 62, 215 70 C 215 78, 205 82, 195 82 L 25 82 C 10 82, 5 75, 5 68 C 5 58, 10 46, 20 45 Z" fill="#FFFFFF" />
+    <!-- Winshields/windows -->
+    <path d="M 48 43 Q 65 25, 105 25 Q 110 25, 110 43 Z M 116 43 Q 116 25, 145 25 Q 165 32, 175 43 Z" fill="#000000" />
+    <!-- Yellow highlights/wheels -->
+    <circle cx="50" cy="80" r="16" fill="#000000" stroke="#FFFFFF" stroke-width="4" />
+    <circle cx="50" cy="80" r="6" fill="#F5B400" />
+    <circle cx="165" cy="80" r="16" fill="#000000" stroke="#FFFFFF" stroke-width="4" />
+    <circle cx="165" cy="80" r="6" fill="#F5B400" />
+    <!-- Door handle -->
+    <rect x="105" y="49" width="12" height="3" rx="1" fill="#000000" />
+    <rect x="140" y="49" width="12" height="3" rx="1" fill="#000000" />
+    <!-- Passenger silhouettes on rear window -->
+    <circle cx="75" cy="38" r="6" fill="#000000" />
+    <path d="M 66 50 C 66 45, 84 45, 84 50 Z" fill="#000000" />
+    <circle cx="92" cy="38" r="6" fill="#000000" />
+    <path d="M 83 50 C 83 45, 101 45, 101 50 Z" fill="#000000" />
+  </g>
+
+  <!-- Bottom Badges: SAFE, LOCAL, AFFORDABLE -->
+  <g transform="translate(0, 15)">
+    <!-- Column 1: SAFE -->
+    <g transform="translate(100, 420)">
+      <!-- Shield Icon -->
+      <path d="M 0 0 L 12 -5 L 24 0 L 24 10 C 24 18, 12 24, 12 24 C 12 24, 0 18, 0 10 Z" fill="none" stroke="#F5B400" stroke-width="3" transform="translate(-12, -4)"/>
+      <path d="M -5 6 L -1 9 L 5 1" fill="none" stroke="#F5B400" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" transform="translate(0, -5)"/>
+      <text x="0" y="32" text-anchor="middle" class="sub-label">SAFE</text>
+    </g>
+
+    <!-- Column 2: LOCAL -->
+    <g transform="translate(256, 420)">
+      <!-- People Icon -->
+      <circle cx="-6" cy="0" r="4.5" fill="none" stroke="#F5B400" stroke-width="2.5"/>
+      <path d="M -13 9 C -13 5, 1 5, 1 9" fill="none" stroke="#F5B400" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="6" cy="0" r="4.5" fill="none" stroke="#F5B400" stroke-width="2.5"/>
+      <path d="M -1 9 C -1 5, 13 5, 13 9" fill="none" stroke="#F5B400" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="0" y="32" text-anchor="middle" class="sub-label">LOCAL</text>
+    </g>
+
+    <!-- Column 3: AFFORDABLE -->
+    <g transform="translate(412, 420)">
+      <!-- R Circle Icon -->
+      <circle cx="0" cy="5" r="11" fill="none" stroke="#F5B400" stroke-width="3"/>
+      <text x="0" y="9" text-anchor="middle" font-family="'Montserrat', 'Arial Black', sans-serif" font-weight="900" font-size="13" fill="#F5B400">R</text>
+      <text x="0" y="32" text-anchor="middle" class="sub-label">AFFORDABLE</text>
+    </g>
+    
+    <!-- Divider lines -->
+    <line x1="178" y1="414" x2="178" y2="446" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1.5" />
+    <line x1="334" y1="414" x2="334" y2="446" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1.5" />
+  </g>
 </svg>

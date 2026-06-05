@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { Power, MapPin, DollarSign, Star, TrendingUp, Bell, Navigation, Settings, Loader2, LogOut, RefreshCw, History, X, ShieldAlert, Sparkles, CreditCard, ShieldCheck, Check } from 'lucide-react';
 import { collection, query, where, onSnapshot, doc, updateDoc, serverTimestamp, setDoc } from 'firebase/firestore';
@@ -644,7 +644,7 @@ export default function DriverHome() {
             >
               <div>
                 <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-white font-black italic tracking-tighter text-2xl uppercase">Kwano Menu</h3>
+                  <h3 className="text-white font-black italic tracking-tighter text-2xl uppercase">Kasi Rides Menu</h3>
                   <button onClick={() => setIsMenuOpen(false)} className="text-gray-400 hover:text-white p-1 cursor-pointer">
                     <X size={20} />
                   </button>

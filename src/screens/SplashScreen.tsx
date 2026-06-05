@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { Car } from 'lucide-react';
 
@@ -10,8 +10,13 @@ export default function SplashScreen() {
     const timer = setTimeout(() => {
       if (!user) {
         setScreen('auth');
+      } else {
+        // Absolute safety watchdog: if we are still stuck on the splash screen after 4 seconds
+        // (usually due to a slow database synced profile loading), redirect to auth role selection
+        // so the user can proceed instead of being locked out.
+        setScreen('auth-role-selection');
       }
-    }, 3000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, [user, setScreen]);
 
@@ -37,18 +42,18 @@ export default function SplashScreen() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-4xl font-bold tracking-tighter text-white"
+        className="text-4xl font-black italic tracking-tighter text-white uppercase text-center"
       >
-        KWANO <span className="text-yellow-500">RIDES</span>
+        KASI <span className="text-yellow-500">RIDES</span>
       </motion.h1>
       
       <motion.p
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="text-yellow-500/70 text-sm mt-2 tracking-widest uppercase font-medium"
+        className="text-yellow-500/70 text-[10px] mt-2 tracking-widest uppercase font-bold text-center px-4"
       >
-        Your Safe Ride Home
+        Your Ride. Your People. Your Kasi.
       </motion.p>
 
       <div className="absolute bottom-12 left-0 right-0 flex justify-center">

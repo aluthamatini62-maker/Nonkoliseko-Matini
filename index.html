@@ -3,15 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>Kwano - Premium Ride-Share</title>
+    <title>Kasi Rides SA - Premium Ride-Share</title>
     <!-- Premium PWA configuration integrations -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#000000" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Kwano" />
+    <meta name="apple-mobile-web-app-title" content="Kasi Rides SA" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="apple-touch-icon" href="/icon.svg" />
+    <!-- Global Fail-safe uncaught error boundary catcher to prevent blank screen errors on older mobile browsers -->
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('Captured top-level crash:', e);
+        setTimeout(function() {
+          var root = document.getElementById('root');
+          if (root && (!root.children || root.children.length === 0)) {
+            root.innerHTML = '<div style="background:#000;color:#fff;padding:30px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-sizing:border-box;"><div style="background:#f5b400;color:#000;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:bold;margin-bottom:20px;">!</div><h2 style="color:#ffffff;margin:0 0 10px 0;font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:1px;">KASI RIDES SA</h2><p style="font-size:12px;color:#888;max-width:280px;line-height:1.5;margin:0 0 25px 0;">The application encountered a browser compatibility warning: <span style="color:#f5b400;font-family:monospace;">' + (e.message || 'Stale script cache detected') + '</span></p><button onclick="if(window.caches){caches.keys().then(function(n){n.forEach(function(x){caches.delete(x)})})};window.location.reload(true);" style="background:#f5b400;color:#000;border:none;padding:14px 28px;border-radius:12px;font-weight:bold;font-size:14px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;box-shadow:0 4px 15px rgba(245,180,0,0.3);width:100%;max-width:240px;">Clear Cache & Reload</button></div>';
+          }
+        }, 500);
+      });
+    </script>
   </head>
   <body class="bg-black select-none overflow-hidden">
     <div id="root"></div>

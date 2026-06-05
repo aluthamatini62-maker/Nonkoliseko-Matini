@@ -9,16 +9,6 @@ async function startServer() {
 
   app.use(express.json());
 
-  // Gemini Initialization
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build',
-      }
-    }
-  });
-
   // AI Teacher Endpoint
   app.post("/api/ai-teacher", async (req, res) => {
     const { question } = req.body;
@@ -26,7 +16,22 @@ async function startServer() {
       return res.status(400).json({ error: "Question is required" });
     }
 
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "Gemini API Key is not configured on the server. Please add GEMINI_API_KEY to your settings." });
+    }
+
     try {
+      // Lazy initialize the SDK
+      const ai = new GoogleGenAI({
+        apiKey: apiKey,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
+        }
+      });
+
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: `You are a helpful and patient Physics Teacher for Grade 10 students. 

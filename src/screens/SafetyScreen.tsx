@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { ShieldAlert, Phone, Share2, Heart, ChevronLeft, MapPin, Loader2, CheckCircle2 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -149,7 +149,7 @@ export default function SafetyScreen() {
       </div>
 
       <footer className="mt-10 mb-6 text-center">
-         <p className="text-gray-600 font-black uppercase tracking-[0.2em] text-[8px]">Kwano Rides Safety Protocol v1.02</p>
+         <p className="text-gray-600 font-black uppercase tracking-[0.2em] text-[8px]">Kasi Rides Safety Protocol v1.02</p>
       </footer>
     </div>
   );
