@@ -25,8 +25,8 @@
     <path d="M 125 155 C 113 155, 103 165, 103 177 C 103 192, 125 212, 125 212 C 125 212, 147 192, 147 177 C 147 165, 137 155, 125 155 Z" fill="#F5B400" />
     <circle cx="125" cy="177" r="5" fill="#000000" />
 
-    <!-- "KASI" Text -->
-    <text x="155" y="202" class="title-kasi">KASI</text>
+    <!-- "KWANO" Text -->
+    <text x="135" y="202" class="title-kasi">KWANO</text>
     
     <!-- Motion lines for RIDES -->
     <path d="M 60 235 L 145 235 M 80 248 L 145 248 M 95 261 L 145 261" stroke="#F5B400" stroke-width="5" stroke-linecap="round" />

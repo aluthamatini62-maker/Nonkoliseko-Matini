@@ -228,9 +228,9 @@ export default function PassengerHome() {
   const durationMins = Math.max(3, Math.round(distance * 1.8));
 
   const rideTypes = [
-    { id: 'mini', name: 'Kasi Mini', price: `R${Math.round(20 + distance * 5.5)}`, capacity: '1 - 4', type: 'car' },
-    { id: 'safe', name: 'Kasi Safe', price: `R${Math.round(30 + distance * 7.5)}`, capacity: '1 - 4', type: 'shield' },
-    { id: 'maxi', name: 'Kasi Maxi', price: `R${Math.round(40 + distance * 10.5)}`, capacity: '1 - 7', type: 'van' }
+    { id: 'mini', name: 'Kwano Mini', price: `R${Math.round(20 + distance * 5.5)}`, capacity: '1 - 4', type: 'car' },
+    { id: 'safe', name: 'Kwano Safe', price: `R${Math.round(30 + distance * 7.5)}`, capacity: '1 - 4', type: 'shield' },
+    { id: 'maxi', name: 'Kwano Maxi', price: `R${Math.round(40 + distance * 10.5)}`, capacity: '1 - 7', type: 'van' }
   ];
 
   const handleRequestRide = async () => {
@@ -687,7 +687,7 @@ export default function PassengerHome() {
             >
               <div>
                 <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-white font-black italic tracking-tighter text-2xl uppercase">Kasi Rides Menu</h3>
+                  <h3 className="text-white font-black italic tracking-tighter text-2xl uppercase">Kwano Rides Menu</h3>
                   <button onClick={() => setIsMenuOpen(false)} className="text-gray-400 hover:text-white p-1">
                     <X size={20} />
                   </button>

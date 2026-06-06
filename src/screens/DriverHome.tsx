@@ -644,7 +644,7 @@ export default function DriverHome() {
             >
               <div>
                 <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-white font-black italic tracking-tighter text-2xl uppercase">Kasi Rides Menu</h3>
+                  <h3 className="text-white font-black italic tracking-tighter text-2xl uppercase">Kwano Rides Menu</h3>
                   <button onClick={() => setIsMenuOpen(false)} className="text-gray-400 hover:text-white p-1 cursor-pointer">
                     <X size={20} />
                   </button>

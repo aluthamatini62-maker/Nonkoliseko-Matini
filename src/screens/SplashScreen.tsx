@@ -44,7 +44,7 @@ export default function SplashScreen() {
         transition={{ delay: 0.4 }}
         className="text-4xl font-black italic tracking-tighter text-white uppercase text-center"
       >
-        KASI <span className="text-yellow-500">RIDES</span>
+        KWANO <span className="text-yellow-500">RIDES</span>
       </motion.h1>
       
       <motion.p

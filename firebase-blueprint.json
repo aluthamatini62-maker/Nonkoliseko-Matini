@@ -12,9 +12,6 @@
         "role": { "type": "string", "enum": ["passenger", "driver", "admin"] },
         "phoneNumber": { "type": "string" },
         "isVerified": { "type": "boolean" },
-        "emergencyContacts": { 
-          "type": "array"
-        },
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
@@ -31,28 +28,18 @@
           "type": "string", 
           "enum": ["requested", "accepted", "started", "completed", "cancelled"] 
         },
-        "pickup": {
-          "type": "object",
-          "properties": {
-            "lat": { "type": "number" },
-            "lng": { "type": "number" },
-            "address": { "type": "string" }
-          }
-        },
-        "destination": {
-          "type": "object",
-          "properties": {
-            "lat": { "type": "number" },
-            "lng": { "type": "number" },
-            "address": { "type": "string" }
-          }
-        },
+        "pickupAddress": { "type": "string" },
+        "pickupLat": { "type": "number" },
+        "pickupLng": { "type": "number" },
+        "destinationAddress": { "type": "string" },
+        "destinationLat": { "type": "number" },
+        "destinationLng": { "type": "number" },
         "price": { "type": "string" },
         "type": { "type": "string" },
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["passengerId", "status", "pickup", "destination"]
+      "required": ["passengerId", "status"]
     },
     "Alert": {
       "title": "Alert",
@@ -62,13 +49,8 @@
         "rideId": { "type": "string" },
         "userId": { "type": "string" },
         "type": { "type": "string" },
-        "location": {
-          "type": "object",
-          "properties": {
-            "lat": { "type": "number" },
-            "lng": { "type": "number" }
-          }
-        },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
         "timestamp": { "type": "string", "format": "date-time" },
         "resolved": { "type": "boolean" }
       }

@@ -14,9 +14,9 @@ export default function App() {
   const { currentScreen, loading } = useApp();
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-yellow-500/30 overflow-hidden">
-      <div className="relative mx-auto max-w-md h-[100dvh] w-full bg-[#111] shadow-2xl overflow-hidden flex flex-col">
-        <div className="flex-1 min-h-0 relative overflow-hidden">
+    <div className="w-full h-full flex flex-col bg-black text-white font-sans selection:bg-yellow-500/30 overflow-hidden">
+      <div className="relative mx-auto max-w-md h-full w-full bg-[#111] shadow-2xl overflow-hidden flex flex-col flex-1">
+        <div className="flex-1 min-h-0 relative overflow-hidden flex flex-col">
           <AnimatePresence mode="wait">
             {currentScreen === 'splash' && <SplashScreen key="splash" />}
             {currentScreen === 'auth' && <AuthScreen key="auth" />}

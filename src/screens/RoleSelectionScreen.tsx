@@ -36,7 +36,7 @@ export default function RoleSelectionScreen() {
     >
       <div className="mt-6 mb-4">
         <h2 className="text-2xl font-bold text-white mb-2 italic">Who are you?</h2>
-        <p className="text-gray-400 text-xs font-medium tracking-tight">Choose your role to continue with Kasi Rides SA.</p>
+        <p className="text-gray-400 text-xs font-medium tracking-tight">Choose your role to continue with Kwano Rides SA.</p>
       </div>
 
       <div className="space-y-4 flex-1 flex flex-col justify-center">

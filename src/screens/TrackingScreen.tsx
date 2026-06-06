@@ -412,7 +412,7 @@ export default function TrackingScreen() {
                     <CheckCircle size={28} />
                   </div>
                   <h3 className="text-white font-black italic tracking-tight text-xl uppercase leading-none">TRIP COMPLETED!</h3>
-                  <p className="text-gray-400 text-[10px] mt-1.5 font-medium leading-normal">Thank you for riding with Kasi Rides SA. You safely reached your destination.</p>
+                  <p className="text-gray-400 text-[10px] mt-1.5 font-medium leading-normal">Thank you for riding with Kwano Rides SA. You safely reached your destination.</p>
                   
                   <div className="bg-black/30 border border-white/5 py-2 px-5 rounded-xl my-4 inline-block font-mono text-lg font-bold text-yellow-500 leading-none">
                     Paid: {activeRide.price}
